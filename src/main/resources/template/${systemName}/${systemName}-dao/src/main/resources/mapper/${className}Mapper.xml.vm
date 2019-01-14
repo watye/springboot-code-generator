@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="${package}.dao.${className}Mapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="resultMap" type="${package}.dao.entity.${className}">
+#foreach($column in $columns)
+        <result property="${column.attrname}" column="${column.columnName}"/>
+#end
+	</resultMap>
+
+  <sql id="baseColumns">
+  	<trim suffixOverrides=","> 
+#foreach($column in $columns)
+        ${column.columnName},
+#end
+  	</trim>
+  </sql>
+  
+  <sql id="whereSql">
+#foreach($column in $columns)
+		<if test="${column.attrname} != null">
+			and ${column.columnName} = #{${column.attrname}}
+		</if>
+#end
+  </sql>
+  
+  	<select id="getById" resultMap="resultMap">
+		select <include refid="baseColumns"/>
+		from ${tableName}
+#foreach ($column in $columns)
+	#if($column.columnName == $pk.columnName)
+	   where ${column.columnName} = #{${pk.attrname}}
+	#end
+#end
+	</select>
+	
+	<select id="getByIds" resultMap="resultMap">
+	     select <include refid="baseColumns"/> from ${tableName}
+#foreach ($column in $columns)
+	#if($column.columnName == $pk.columnName)
+	      where ${column.columnName} in
+	#end
+#end
+	     <foreach collection="ids" item="id" index="index"  open="(" close=")" separator=",">
+               #{id}
+         </foreach>  
+	</select>
+
+	<select id="get" resultMap="resultMap" parameterType="${package}.dao.entity.${className}">
+		select <include refid="baseColumns"/> from
+         ${tableName}  where 1=1 <include refid="whereSql"/> limit 1
+	</select>
+	
+	<select id="findAllList" resultMap="resultMap">
+	     select <include refid="baseColumns"/> from ${tableName}
+	</select>
+
+	<select id="findList"  parameterType="${package}.dao.entity.${className}" resultMap="resultMap">
+	     select <include refid="baseColumns"/> from ${tableName} where 1=1 <include refid="whereSql"/>
+	</select>
+
+	 <select id="getCount"  parameterType="${package}.dao.entity.${className}" resultType="java.lang.Integer">
+         select count(1) from ${tableName} where 1=1 <include refid="whereSql"/>
+      </select>
+
+      <insert id="save" parameterType="${package}.dao.entity.${className}">
+       insert into ${tableName} (
+		<trim suffixOverrides=","> 
+	#foreach($column in $columns)
+			<if test="${column.attrname} != null">
+				${column.columnName},
+			</if>
+	#end
+		</trim>
+		) values (
+		<trim suffixOverrides=",">
+	#foreach($column in $columns)
+			<if test="${column.attrname} != null">
+				#{${column.attrname}},
+			</if>
+	#end
+		</trim>
+	)
+    </insert>
+    
+    <update id="updateById" parameterType="${package}.dao.entity.${className}">
+	    update ${tableName}  set
+	     <trim suffixOverrides="," >
+	#foreach($column in $columns)
+		#if($column.columnName != $pk.columnName)
+			<if test="${column.attrname} != null">
+				${column.columnName} = #{${column.attrname}},
+			</if>
+		#end
+	#end
+		  </trim>
+#foreach ($column in $columns)
+	#if($column.columnName == $pk.columnName)
+		 where ${column.columnName} = #{${pk.attrname}}
+	#end
+#end
+	</update>
+
+	 <update id="updateByIds" parameterType="${package}.dao.entity.${className}">
+          update ${tableName}  set
+	     <trim suffixOverrides="," >
+	#foreach($column in $columns)
+		#if($column.columnName != $pk.columnName)
+			<if test="${column.attrname} != null">
+				${column.columnName} = #{${column.attrname}},
+			</if>
+		#end
+	#end
+		  </trim>
+#foreach ($column in $columns)
+	#if($column.columnName == $pk.columnName)
+		 where ${column.columnName} in
+		  <foreach collection="ids" item="item" index="index"  open="(" close=")" separator=",">
+               #{item}
+         </foreach>
+	#end
+#end
+	</update>
+	
+	<delete id="deleteById">
+        delete from ${tableName} 
+#foreach ($column in $columns)
+	#if($column.columnName == $pk.columnName)
+         where ${column.columnName} = #{${pk.attrname}}
+	#end
+#end
+    </delete>
+    
+     <delete id="deleteByIds">
+        delete from ${tableName} 
+#foreach ($column in $columns)
+	#if($column.columnName == $pk.columnName)
+         where ${column.columnName} in 
+	#end
+#end
+        <foreach collection="array" item="item" index="index"  open="(" close=")" separator=",">
+               #{item}
+        </foreach>  
+	</delete>
+
+   <delete id="deleteByListId">
+        delete from ${tableName} 
+#foreach ($column in $columns)
+	#if($column.columnName == $pk.columnName)
+         where ${column.columnName} in
+	#end
+#end
+        <foreach collection="list" item="item" index="index"  open="(" close=")" separator=",">
+               #{item}
+        </foreach>
+	</delete>
+    
+    <delete id="delete" parameterType="${package}.dao.entity.${className}">
+        delete from ${tableName} where 1=1 <include refid="whereSql"/> 
+    </delete>
+</mapper>
