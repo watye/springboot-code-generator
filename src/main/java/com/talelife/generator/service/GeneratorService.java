@@ -4,8 +4,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.zip.ZipOutputStream;
 
@@ -46,13 +48,13 @@ public class GeneratorService {
 		List<File> templates = getTemplates();
 		List<String> projectTemplates = getTemplates(templates,"project");
 		List<String> tableTemplates = getTemplates(templates,"table");
-		
+		Set<String> zipTemplates = new HashSet<>(projectTemplates);
 		GenUtils.generate(zip, subSysName, basePackage, moduleSimpleName, port, dbName,projectTemplates,dbInfo);
 		
 		for(String tableName : tableNames){
 			Map<String, String> table = queryTable(tableName);
 			List<Map<String, Object>> columns = queryColumns(tableName);
-			GenUtils.generatorByTable(table, columns, zip, subSysName, basePackage, moduleSimpleName, tableTemplates,"web",dbInfo);
+			GenUtils.generatorByTable(table, columns, zip, subSysName, basePackage, moduleSimpleName, tableTemplates,"web",dbInfo,zipTemplates);
 		}
 		IOUtils.closeQuietly(zip);
 		return outputStream.toByteArray();

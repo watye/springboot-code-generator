@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -246,13 +247,14 @@ public class GenUtils {
 	 * @param templates 
 	 * @param mode api h5 web dao 
 	 * @param dbInfo 
+	 * @param zipTemplates 
 	 */
 	public static void generatorByTable(
 			Map<String, String> table,
 			List<Map<String, Object>> columns,
 			ZipOutputStream zip, String subSysName,
 			String basePackage, String moduleSimpleName, List<String> templates,
-			String mode, DbInfo dbInfo){
+			String mode, DbInfo dbInfo, Set<String> zipTemplates){
 	
 		//配置信息
 		Configuration config = getConfig();
@@ -277,19 +279,23 @@ public class GenUtils {
 		Map<String, Object> map = createContextDetail(subSysName, basePackage, moduleSimpleName,
 				config, hasBigDecimal,tableEntity, mainPath);
         VelocityContext context = new VelocityContext(map);
-        
         //获取模板列表
 		for(String template : templates){
+			if(zipTemplates.contains(template)){
+				continue;
+			}
 			//渲染模板
 			StringWriter sw = new StringWriter();
 			Template tpl = Velocity.getTemplate(template, "UTF-8");
 			tpl.merge(context, sw);
 			
 			try {
+
 				zip.putNextEntry(new ZipEntry(getOutputFileName(context, template)));
 				IOUtils.write(sw.toString(), zip, "UTF-8");
 				IOUtils.closeQuietly(sw);
 				zip.closeEntry();
+				zipTemplates.add(template);
 			} catch (IOException e) {
 				throw new RRException("渲染模板失败，表名：" + tableEntity.getTableName(), e);
 			}
