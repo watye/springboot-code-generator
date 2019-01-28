@@ -48,8 +48,8 @@ public class GeneratorService {
 		List<File> templates = getTemplates();
 		List<String> projectTemplates = getTemplates(templates,"project");
 		List<String> tableTemplates = getTemplates(templates,"table");
-		Set<String> zipTemplates = new HashSet<>(projectTemplates);
-		GenUtils.generate(zip, subSysName, basePackage, moduleSimpleName, port, dbName,projectTemplates,dbInfo);
+		Set<String> zipTemplates = new HashSet<>();
+		GenUtils.generate(zip, subSysName, basePackage, moduleSimpleName, port, dbName,projectTemplates,dbInfo,zipTemplates);
 		
 		for(String tableName : tableNames){
 			Map<String, String> table = queryTable(tableName);
