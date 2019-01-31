@@ -40,7 +40,7 @@ public class ${className}WebController extends BaseController {
 	private ${className}WebService ${classname}WebService;
 
 	@ApiOperation(value = "分页查询")
-	@RequestMapping(value = "/page", method = RequestMethod.GET)
+	@GetMapping(value = "/page")
 	public ResponseEntity<Page<${className}Dto>> page(@Validated PageQueryParameter<${className}Query> pageQuery) {
 		${className} ${classname} = BeanUtils.map(pageQuery.getQuery(), ${className}.class);
 		PageInfo<${className}> page = ${classname}WebService.findListPage(${classname},pageQuery.getPageNum(), pageQuery.getPageSize());
@@ -49,28 +49,28 @@ public class ${className}WebController extends BaseController {
 	}
 
 	@ApiOperation(value = "查询单个")
-	@RequestMapping(value="/{id}",method = RequestMethod.GET)
+	@GetMapping(value="/{id}")
 	public ResponseEntity<${className}Dto> get${className}(@PathVariable @ApiParam(value="用户id") Long id) {
 		${className} ${classname} = ${classname}WebService.getById(id);
 		return ResponseEntity.ok(BeanUtils.map(${classname}, ${className}Dto.class));
 	}
 
 	@ApiOperation(value = "新增")
-	@RequestMapping(value="/add",method = RequestMethod.POST)
+	@PostMapping(value="/add")
 	public ResponseEntity<Object> add(@Validated ${className}Add ${classname}Add) {
 		${classname}WebService.save(BeanUtils.map(${classname}Add,${className}.class));
 		return ResponseEntity.ok();
 	}
 
 	@ApiOperation(value = "修改")
-	@RequestMapping(value="/{id}",method = RequestMethod.PUT)
+	@PutMapping(value="/{id}")
 	public ResponseEntity<Object> update(@PathVariable Long id,${className}Update ${classname}Update) {
 		${classname}WebService.updateById(BeanUtils.map(${classname}Update,${className}.class));
 		return ResponseEntity.ok();
 	}
 	
 	@ApiOperation(value = "删除")
-	@RequestMapping(value="/{id}",method = RequestMethod.DELETE)
+	@DeleteMapping(value="/{id}")
 	public ResponseEntity<Object> delete(@PathVariable @ApiParam(value="id") Long id) {
 		${classname}WebService.deleteById(id);
 		return ResponseEntity.ok();
