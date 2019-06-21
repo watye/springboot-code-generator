@@ -4,13 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.talelife.framework.mapper.CrudMapper;
-import com.talelife.framework.service.CrudServiceImpl;
 import ${package}.dao.${className}Mapper;
 import ${package}.dao.entity.${className};
 import ${package}.web.service.${className}WebService;
 
 @Service
-public class ${className}WebServiceImpl extends CrudServiceImpl<${className}> implements ${className}WebService {
+public class ${className}WebServiceImpl implements ${className}WebService {
 	@Autowired
 	private ${className}Mapper mapper;
 
