@@ -9,6 +9,5 @@
 	<modules>
 		<module>${systemName}-dao</module>
 		<module>${systemName}-web</module>
-		<module>${systemName}-feign-web</module>
 	</modules>
 </project>

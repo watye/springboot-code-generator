@@ -1,26 +1,4 @@
-#mybatis配置
-mybatis:
-  config-locations: classpath:mybatis-config.xml
-  mapper-locations: classpath:/mapper/*Mapper.xml
-  type-aliases-package: ${package}.dao.entity
-  configuration:
-    cache-enabled: false
-#pagehelper分页插件配置
-pagehelper:
-  helperDialect: mysql
-  reasonable: true
-  supportMethodsArguments: true
-  params-count: countSql
-#redis session
-redis:
-  #hostName: 120.25.208.44
-  host: 172.31.118.23
-  password: 123456
-  port: 6379
-  timeout: 10000
-
 spring:
-  #spring数据源配置
   datasource:
     url: jdbc:mysql://${dbInfo.host}:${dbInfo.port}/${dbInfo.dbName}?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
     username: ${dbInfo.userName}
@@ -32,3 +10,12 @@ spring:
     host: 172.31.118.23
     password: 123456
     port: 6379
+logging:
+  level:
+    ${package}: DEBUG
+mybatis:
+  mapper-locations: classpath:/mapper/*Mapper.xml
+  type-aliases-package: ${package}.dao.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
