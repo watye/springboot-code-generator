@@ -3,15 +3,21 @@ package ${package}.web;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @MapperScan("${package}.dao")
 @EnableSwagger2
+@ComponentScan(basePackages = {
+		"com.talelife.framework.handler",
+		"com.talelife.framework.interceptor",
+		"${package}"
+		})
 public class ${moduleName}WebApplication {
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) {
        SpringApplication.run(${moduleName}WebApplication.class, args);
   }
 
