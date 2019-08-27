@@ -1,4 +1,4 @@
-package com.syswin.user.web.enums;
+package ${package}.web.enums;
 
 /**
  * 业务异常码
