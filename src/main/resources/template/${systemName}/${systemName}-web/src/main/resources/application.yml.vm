@@ -3,7 +3,6 @@ spring:
     url: jdbc:mysql://${dbInfo.host}:${dbInfo.port}/${dbInfo.dbName}?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
     username: ${dbInfo.userName}
     password: ${dbInfo.password}
-    driver-class-name: com.mysql.jdbc.Driver
     #指定数据连接沲
     type: com.alibaba.druid.pool.DruidDataSource
   redis:
