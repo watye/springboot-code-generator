@@ -3,12 +3,7 @@ spring:
     url: jdbc:mysql://${dbInfo.host}:${dbInfo.port}/${dbInfo.dbName}?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
     username: ${dbInfo.userName}
     password: ${dbInfo.password}
-    #指定数据连接沲
     type: com.alibaba.druid.pool.DruidDataSource
-  redis:
-    host: 172.31.118.23
-    password: 123456
-    port: 6379
 logging:
   level:
     ${package}: DEBUG
