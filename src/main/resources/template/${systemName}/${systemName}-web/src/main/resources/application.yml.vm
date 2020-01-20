@@ -3,12 +3,20 @@ spring:
     url: jdbc:mysql://${dbInfo.host}:${dbInfo.port}/${dbInfo.dbName}?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
     username: ${dbInfo.userName}
     password: ${dbInfo.password}
-    type: com.alibaba.druid.pool.DruidDataSource
+    hikari:
+      pool-name: HikariPool-1
+      minimum-idle: 10 #池中维护的最小空闲连接数，默认10
+      maximum-pool-size: 20 #池中最大连接数，包括闲置和使用中的连接，默认10
+      connection-timeout: 30000 #等待来自池的连接的最大毫秒数，默认30秒(如果小于250毫秒，则被重置回30秒)
+      max-lifetime: 1800000 #池中连接最长生命周期，值0表示无限生命周期，默认1800000即30分钟(如果不等于0且小于30秒则会被重置回30分钟)
+      idle-timeout: 600000 #连接允许在池中闲置的最长时间，默认600000（10分钟），如果idleTimeout+1秒>maxLifetime 且 maxLifetime>0，则会被重置为0（代表永远不会退出）；如果idleTimeout!=0且小于10秒，则会被重置为10秒
+      auto-commit: true #此属性控制从池返回的连接的默认自动提交行为,默认：true
+      validation-timeout: 5000 #连接将被测试活动的最大时间量，如果小于250毫秒，则会被重置回5秒,默认5000
 logging:
   level:
     ${package}: DEBUG
 mybatis:
-  mapper-locations: classpath:/mapper/*Mapper.xml
+  mapper-locations: classpath*:/mapper/*Mapper.xml
   type-aliases-package: ${package}.dao.entity
   configuration:
     map-underscore-to-camel-case: true

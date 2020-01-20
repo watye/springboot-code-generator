@@ -1,5 +1,14 @@
 server:
   port: ${port}
+  max-http-header-size: 8KB #最大请求头
+  tomcat:
+    connection-timeout: 1000 #连接超时时间，默认无
+    min-spare-threads： 10 #最小闲置线程，默认10
+    max-threads: 200 #最大工作线程，默认200
+    max-connections: 10000 #最大连接数，默认10000
+    accept-count： 100 #最大等待请求数
+    max-http-form-post-size: 2M #HTTP post请求数据最大值，默认2M
+    max-swallow-size： 2M  #最大请求体，默认2M
 spring:
   application:
     name: ${systemName}-web
