@@ -21,7 +21,7 @@ import com.talelife.framework.annotation.ResponseResult;
 import com.talelife.framework.controller.BaseController;
 import ${package}.web.dto.${className}Dto;
 import ${package}.dao.entity.${className};
-import ${package}.web.service.${className}WebService;
+import ${package}.web.service.${className}Service;
 import ${package}.web.vo.${className}Add;
 import ${package}.web.vo.${className}Query;
 import ${package}.web.vo.${className}Update;
@@ -39,41 +39,41 @@ import io.swagger.annotations.ApiParam;
 @RestController
 @ResponseResult
 @RequestMapping("/web/${classname}")
-public class ${className}WebController extends BaseController {
+public class ${className}Controller extends BaseController {
 	@Resource
-	private ${className}WebService ${classname}WebService;
+	private ${className}Service ${classname}Service;
 
 	@ApiOperation(value = "分页查询")
-	@GetMapping(value = "/page")
+	@GetMapping("/page")
 	public Page<${className}Dto> page(@Validated PageQueryParameter<${className}Query> pageQuery) {
 		${className} ${classname} = BeanUtils.map(pageQuery.getQuery(), ${className}.class);
-		PageInfo<${className}> page = ${classname}WebService.findListPage(${classname},pageQuery.getPageNum(), pageQuery.getPageSize());
+		PageInfo<${className}> page = ${classname}Service.findListPage(${classname},pageQuery.getPageNum(), pageQuery.getPageSize());
 		List<${className}Dto> ${classname}List = BeanUtils.mapAsList(page.getList(), ${className}.class, ${className}Dto.class);
 		return new Page<>(page,${classname}List);
 	}
 
-	@ApiOperation(value = "查询单个")
+	@ApiOperation("查询单个")
 	@GetMapping(value="/{id}")
 	public ${className}Dto get${className}(@PathVariable @ApiParam(value="用户id") Long id) {
-		${className} ${classname} = ${classname}WebService.getById(id);
+		${className} ${classname} = ${classname}Service.getById(id);
 		return BeanUtils.map(${classname}, ${className}Dto.class);
 	}
 
 	@ApiOperation(value = "新增")
-	@PostMapping(value="/add")
+	@PostMapping("/add")
 	public void add(@Validated ${className}Add ${classname}Add) {
-		${classname}WebService.save(BeanUtils.map(${classname}Add,${className}.class));
+		${classname}Service.save(BeanUtils.map(${classname}Add,${className}.class));
 	}
 
 	@ApiOperation(value = "修改")
-	@PutMapping(value="/{id}")
+	@PutMapping("/{id}")
 	public void update(@PathVariable Long id,${className}Update ${classname}Update) {
-		${classname}WebService.updateById(BeanUtils.map(${classname}Update,${className}.class));
+		${classname}Service.updateById(BeanUtils.map(${classname}Update,${className}.class));
 	}
 	
 	@ApiOperation(value = "删除")
-	@DeleteMapping(value="/{id}")
+	@DeleteMapping("/{id}")
 	public void delete(@PathVariable @ApiParam(value="id") Long id) {
-		${classname}WebService.deleteById(id);
+		${classname}Service.deleteById(id);
 	}
 }

@@ -15,10 +15,10 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 		"com.talelife.framework.interceptor",
 		"${package}"
 		})
-public class ${moduleName}WebApplication {
+public class ${moduleName}Application {
 
 	public static void main(String[] args) {
-       SpringApplication.run(${moduleName}WebApplication.class, args);
+       SpringApplication.run(${moduleName}Application.class, args);
   }
 
 

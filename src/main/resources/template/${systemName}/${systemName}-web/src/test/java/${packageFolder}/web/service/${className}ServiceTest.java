@@ -9,21 +9,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import ${package}.web.AbstractTest;
 import ${package}.dao.entity.${className};
-import ${package}.web.service.${className}WebService;
+import ${package}.web.service.${className}Service;
 
 public class ${className}ServiceTest extends AbstractTest{
 	@Autowired
-	private ${className}WebService ${classname}WebService;
+	private ${className}Service ${classname}Service;
 	
 	@Test
 	public void testSave(){
 		${className} entity = new ${className}();
-		${classname}WebService.save(entity);
+		${classname}Service.save(entity);
 	}
 	
 	@Test
 	public void testGetById(){
-		${classname}WebService.getById(1L);
+		${classname}Service.getById(1L);
 	}
 	
 	@Test
@@ -31,57 +31,57 @@ public class ${className}ServiceTest extends AbstractTest{
 		List<Long> ids = new ArrayList<>();
 		ids.add(1L);
 		ids.add(2L);
-		${classname}WebService.getByIds(ids);
+		${classname}Service.getByIds(ids);
 	}
 	
 	@Test
 	public void testGet(){
 		${className} entity = new ${className}();
-		${classname}WebService.get(entity);
+		${classname}Service.get(entity);
 	}
 	
 	@Test
 	public void testFindList(){
 		${className} entity = new ${className}();
-		${classname}WebService.findList(entity);
+		${classname}Service.findList(entity);
 	}
 	
 	@Test
 	public void testFindAll(){
-		${classname}WebService.findAll();
+		${classname}Service.findAll();
 	}
 	
 	@Test
 	public void testGetCount(){
 		${className} entity = new ${className}();
-		${classname}WebService.getCount(entity);
+		${classname}Service.getCount(entity);
 	}
 	
 	@Test
 	public void testUpdateById(){
 		${className} entity = new ${className}();
-		${classname}WebService.updateById(entity);
+		${classname}Service.updateById(entity);
 	}
 	
 	@Test
 	public void testUpdateByIds(){
 		${className} entity = new ${className}();
-		${classname}WebService.updateByIds(entity,new Long[]{2L,3L});
+		${classname}Service.updateByIds(entity,new Long[]{2L,3L});
 	}
 	
 	@Test
 	public void testDeleteById(){
-		${classname}WebService.deleteById(4L);
+		${classname}Service.deleteById(4L);
 	}
 	
 	@Test
 	public void testDeleteByIds(){
-		${classname}WebService.deleteByIds(Arrays.asList(2L,3L));
+		${classname}Service.deleteByIds(Arrays.asList(2L,3L));
 	}
 	
 	@Test
 	public void testDelete(){
 		${className} entity = new ${className}();
-		${classname}WebService.delete(entity);
+		${classname}Service.delete(entity);
 	}
 }

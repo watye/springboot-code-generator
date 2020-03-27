@@ -148,7 +148,7 @@ public class GenUtils {
 	 */
 	public static String tableToJava(String tableName, String tablePrefix) {
 		if(StringUtils.isNotBlank(tablePrefix)){
-			tableName = tableName.replace(tablePrefix, "");
+			tableName = tableName.replaceFirst(tablePrefix, "");
 			return WordUtils.capitalizeFully(tableName, new char[]{'_'}).replace("_", "");
 		}
 		return null;

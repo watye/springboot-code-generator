@@ -6,10 +6,10 @@ import org.springframework.stereotype.Service;
 import com.talelife.framework.mapper.CrudMapper;
 import ${package}.dao.${className}Mapper;
 import ${package}.dao.entity.${className};
-import ${package}.web.service.${className}WebService;
+import ${package}.web.service.${className}Service;
 
 @Service
-public class ${className}WebServiceImpl implements ${className}WebService {
+public class ${className}ServiceImpl implements ${className}Service {
 	@Autowired
 	private ${className}Mapper mapper;
 
