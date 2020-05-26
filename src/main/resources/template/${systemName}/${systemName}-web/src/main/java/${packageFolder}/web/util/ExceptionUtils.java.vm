@@ -1,0 +1,16 @@
+package ${package}.web.util;
+
+import ${package}.enums.BizExceptionCode;
+import com.talelife.framework.exception.BusinessException;
+
+public final class ExceptionUtils {
+	private ExceptionUtils(){}
+	
+	/**
+	 * 根据枚举抛业务异常
+	 * @param bizException
+	 */
+	public static void throwBizException(BizExceptionCode bizException){
+		throw new BusinessException(bizException.getCode(), bizException.getMessage());
+	}
+}
