@@ -4,13 +4,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ${package}.web.AbstractTest;
 import ${package}.dao.entity.${className};
 import ${package}.web.service.${className}Service;
-
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ${className}ServiceTest extends AbstractTest{
 	@Autowired
 	private ${className}Service ${classname}Service;
