@@ -93,7 +93,11 @@ public class GenUtils {
 			columnEntity.setExtra(column.get("extra").toString());
 			columnEntity.setNullable(column.get("nullable").toString());
 			if(null != column.get("characterMaximumLength")){
-				columnEntity.setCharacterMaximumLength(Integer.valueOf(column.get("characterMaximumLength").toString()));
+				try {
+					columnEntity.setCharacterMaximumLength(Integer.valueOf(column.get("characterMaximumLength").toString()));
+				} catch (NumberFormatException e) {
+					columnEntity.setCharacterMaximumLength(Integer.MAX_VALUE);
+				}
 			}
 			
 			//列名转换成Java属性名
