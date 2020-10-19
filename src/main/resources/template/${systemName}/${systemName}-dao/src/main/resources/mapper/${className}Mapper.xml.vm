@@ -10,7 +10,7 @@
 
   <sql id="baseColumns">
   		<choose>
-  			<when test="_parameter!=null and _parameter.containsKey('properties')">
+  			<when test="_parameter!=null and _parameter instanceof java.util.Map and _parameter.containsKey('properties')">
   				<trim suffixOverrides=","> 
   				#foreach($column in $columns)
 	  				<if test="properties.contains('${column.attrname}')">
